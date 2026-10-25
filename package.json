@@ -16,7 +16,6 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@hookform/resolvers": "^5.9.1",
     "@jridgewell/sourcemap-codec": "^1.6.0",
-    "@next/swc-win32-x64-msvc": "^16.4.0",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.11.0",
