@@ -64,7 +64,7 @@ npm run dev
 ```
 
 - Store: [http://localhost:3000](http://localhost:3000)
-- Admin: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
+- Admin: [http://localhost:3000/sdfg](http://localhost:3000/sdfg)
 
 ### 5. Test / build
 

@@ -88,7 +88,9 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           <div className="absolute bottom-0 w-full border-t border-neutral-200 p-3">
             <button
               type="button"
-              onClick={() => signOut({ callbackUrl: "/admin/login" })}
+              onClick={() =>
+                signOut({ callbackUrl: `${window.location.origin}/sdfg` })
+              }
               className="flex w-full items-center gap-3 px-3 py-2.5 text-sm text-neutral-600 hover:bg-neutral-100"
             >
               <LogOut className="h-4 w-4" />

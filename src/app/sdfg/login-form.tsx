@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
 function LoginForm() {
   const router = useRouter();
@@ -19,6 +18,7 @@ function LoginForm() {
     const result = await signIn("credentials", {
       email: String(form.get("email")),
       password: String(form.get("password")),
+      intent: "admin",
       redirect: false,
     });
     setLoading(false);
@@ -26,7 +26,8 @@ function LoginForm() {
       setError("Invalid email or password");
       return;
     }
-    router.push(searchParams.get("callbackUrl") || "/admin");
+    const callback = searchParams.get("callbackUrl") || "/admin";
+    router.push(callback.startsWith("/admin") ? callback : "/admin");
     router.refresh();
   }
 
@@ -72,7 +73,7 @@ function LoginForm() {
   );
 }
 
-export default function AdminLoginPage() {
+export function AdminLoginForm() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#F7F7F5]" />}>
       <LoginForm />

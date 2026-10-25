@@ -13,12 +13,6 @@ const nextConfig = {
   },
   turbopack: {
     root: rootDir,
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
   },
 };
 

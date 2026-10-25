@@ -8,13 +8,14 @@ import { User } from "@/models/User";
 const credentialsSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
+  intent: z.enum(["customer", "admin"]).optional(),
 });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
   session: { strategy: "jwt" },
   pages: {
-    signIn: "/admin/login",
+    signIn: "/account",
   },
   providers: [
     Credentials({
@@ -39,6 +40,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           user.passwordHash
         );
         if (!valid) return null;
+
+        const intent = parsed.data.intent ?? "customer";
+        if (intent === "admin" && user.role !== "admin") return null;
+        if (intent === "customer" && user.role !== "customer") return null;
 
         return {
           id: String(user._id),

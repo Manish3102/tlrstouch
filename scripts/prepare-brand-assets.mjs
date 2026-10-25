@@ -45,23 +45,23 @@ const wordmark = await knockout(sources.wordmark);
 await wordmark.clone().toFile(path.join(root, "wordmark.png"));
 
 const markBuf = await sharp(path.join(root, "mark.png")).toBuffer();
-const meta = await sharp(markBuf).metadata();
-const side = Math.max(meta.width, meta.height) + 80;
+const side = 512;
+const fitted = await sharp(markBuf)
+  .resize(Math.round(side * 0.92), Math.round(side * 0.92), {
+    fit: "contain",
+    background: { r: 0, g: 0, b: 0, alpha: 0 },
+  })
+  .png()
+  .toBuffer();
 await sharp({
   create: {
     width: side,
     height: side,
     channels: 4,
-    background: { r: 246, g: 244, b: 240, alpha: 1 },
+    background: { r: 245, g: 241, b: 232, alpha: 1 },
   },
 })
-  .composite([
-    {
-      input: markBuf,
-      gravity: "centre",
-    },
-  ])
-  .resize(512, 512)
+  .composite([{ input: fitted, gravity: "centre" }])
   .png()
   .toFile(path.join(root, "favicon.png"));
 
